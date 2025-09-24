@@ -18,7 +18,8 @@ def get_top_ten():
     
     data = request.get_json()
     artist_id = data.get('id')
-    use_cache = request.args.get('use_cache', True)
+    use_cache = False if request.args.get('use_cache') == "False" else True
+    print(use_cache)
 
     if dynamo.check_artist_dynamo(artist_id) and use_cache:
         # GET DATA FROM REDIS THEN RETURN IT
